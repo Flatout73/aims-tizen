@@ -1,0 +1,154 @@
+* {
+    font-family: Verdana, Lucida Sans, Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0px auto;
+    background-color:#222;
+}
+
+.contents {
+	display: flex;
+	display: -webkit-flex;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	height:320px;
+}
+
+
+.content_text {
+	font-weight:bold;
+	font-size:5em;
+	color:#fff;
+}
+
+div {
+    display: block;
+}
+
+.dlike-button {
+ 	float: left;
+ 	padding-left:4px; 
+	width: 49%;
+}
+
+.content-padding {
+	padding-top: 16px;
+	padding-bottom: 16px;
+	padding-left: 20px;
+	padding-right: 20px;
+	overflow: auto;
+}
+
+.sub-date {
+	display: inline-block;
+	margin-bottom: 16px;
+	margin-top: 16px;
+}
+
+#sub-date-about {
+	font-size: 26px;
+	color: grey;
+}
+
+.like-btn {
+	width: 100%;
+	border-radius: 5%;
+	text-align: center;
+	vertical-align: middle;
+	padding-top: -10px;
+	padding-bottom: -10px;
+}
+/*-----------ListView------------*/
+
+.ui-listview li {
+	position: relative;
+}
+
+/* .li-has-multiline {
+	position: absolute;
+    top: 10px;
+    bottom: 10px;
+} */
+
+.ui-listview li.li-has-multiline {
+	padding-top: 6px;
+	padding-bottom: 5px;
+ 	min-height: 80px;
+}
+
+.ui-listview li.li-has-multiline > a {
+	margin-top: -6px;
+	margin-bottom: -6px;
+	padding-top: 11px;
+	padding-bottom: 12px;
+/* 	line-height: 32px; */
+}
+
+.ui-listview li .li-text-sub {
+	display: block;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	line-height: 32px;
+}
+
+.ui-listview li .target {
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.ui-listview li.li-has-thumb-left {
+	padding-left: 88px;
+}
+
+.ui-listview li img {
+	position: absolute;
+ 	top:50%;
+ 	-webkit-transform: translate3d(0, -50%, 0);
+	width: 64px;
+	height: 64px;
+	background-color: rgba(245, 245, 245, 1);
+}
+
+.ui-listview li.li-has-thumb-left img {
+	border-radius: 50%;
+	left: 16px;
+}
+
+.ui-listview li.li-has-multiline.li-has-thumb-left {
+	padding-left: 88px;
+	padding-right: 30px;
+	margin-left: 0;
+}
+
+/* .ui-listview li.li-button {
+	margin: auto;
+	height: auto;
+} */
+
+.section-list {
+	overflow: auto;
+}
+
+.processing-container {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	-webkit-transform: translate3d(-50%, -50%, 0);
+}
+
+/* .li-has-multiline .target-container {
+    line-height: 48px;
+} */
+
+/* 
+.li-has-multiline .date-container {
+    line-height: 32px;
+    font-size: 24px;
+} */
+/*
+.date-container .date {
+	margin:0px;
+}
+*/

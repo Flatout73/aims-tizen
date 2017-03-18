@@ -1,0 +1,25 @@
+<resources>
+    <application name="aims">
+        <serviceProfile
+            id="/system/sapsample"
+            name="SAPaims"
+            role="consumer"
+            version="1.0">
+            <supportedTransports>
+                <transport type="TRANSPORT_BT"/>
+            </supportedTransports>
+            <serviceChannel
+                id="124"
+                dataRate="high"
+                priority="medium"
+                reliability="enable">
+            </serviceChannel>
+            <serviceChannel
+                id="111"
+                dataRate="low"
+                priority="medium"
+                reliability="enable">
+            </serviceChannel>
+        </serviceProfile>
+    </application>
+</resources>

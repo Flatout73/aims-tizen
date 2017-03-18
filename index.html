@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>Aims</title>
+	<link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.min.css">
+	<link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="lib/tau/wearable/theme/default/tau.circle.min.css">
+	<!-- load theme file for your application -->
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class="ui-page ui-page-active" id="info">
+	<header class="ui-header">
+			<h2 class="ui-title">Информация</h2>
+	</header>
+		<div class="ui-content">
+			<ul class="ui-listview" id="info-list">
+				<li class="li-has-multiline li-has-thumb-left">
+					Имя
+					<span class="ui-li-sub-text li-text-sub" id="info-name"></span>
+					<img src="./css/images/thumbnail_center.png" class="ui-li-thumb-left" id= "info-img">
+				</li>
+				<li class='li-has-multiline'><a href="#">
+						Логин
+						<span class='date ui-li-sub-text li-text-sub' id="info-login"></span>
+				</a></li>
+				<li class='li-has-multiline'><a href="#">
+						E-mail
+						<span class='date ui-li-sub-text li-text-sub' id="info-email"></span>
+				</a></li>
+				<li class='li-has-multiline'><a href="#">
+						Пол
+						<span class='date ui-li-sub-text li-text-sub' id="info-sex"></span>
+				</a></li>
+				<li class='li-has-multiline'><a href="#">
+						Рейтинг
+						<span class='date ui-li-sub-text li-text-sub' id="info-rating"></span>
+				</a></li>
+<!-- 				<li class="li-button">
+					<a href ="main" class="ui-btn">Начать</a>
+				</li> -->
+			</ul>	
+		</div>
+	<footer class="ui-footer ui-grid-col-2 ui-bottom-button">
+			<input type=button class="ui-btn" value="Обновить" onclick="connect();"/>
+			<a href ="main" class="ui-btn">Начать</a>
+	</footer>
+	<div id="connection-toast" class="ui-popup ui-popup-toast">
+		<div class="ui-popup-content">Телефон успешно подключен</div>
+	</div>
+	<div id="progress-popup" class="ui-popup">
+		<div class="ui-popup-content">
+		<div class="processing-container">
+			<div class="ui-processing"></div>
+			<div class="ui-processing-text">
+					Получаем данные
+			</div>
+		</div>
+		</div>
+		<div class="ui-popup-footer">
+			<button id="cancel-popup" class="ui-btn">Отмена</button>
+		</div>
+	</div>
+	</div> 
+	<div class="ui-page" id="main">
+		<header class="ui-header">
+			<h2 class="ui-title" id="header">Моя страница</h2>
+		</header>
+		<div id="pageIndicator" class="ui-page-indicator" style="bottom: 0px"></div>
+		<div id="sectionchanger" class="ui-content">
+		<div>
+		<section class="section-active section-list">
+			<ul class="ui-listview" id="mypage-list-targets">
+<!-- 				<li class="li-has-multiline li-has-thumb-left">
+					Name
+					<span class="ui-li-sub-text li-text-sub">Рейтинг</span>
+					<img src="./css/images/thumbnail_center.png" class="ui-li-thumb-left">
+				</li> -->
+<!--   				<li class='li-has-multiline'><a href="#">
+					<span class='target'>Target</span>
+					<span class='date ui-li-sub-text li-text-sub'>Date</span>
+				</a></li> -->
+			</ul>
+		</section>
+		<section class="section-list">
+			<div class="ui-content">
+				<ul class="ui-listview" id='news-feed'>
+<!-- 					<li class="li-has-multiline li-has-2line-sub">
+					<a href="target.html">
+						Target
+						<span class="ui-li-sub-text li-text-sub">Date</span>
+						<span class="ui-li-sub-text li-text-sub">Author</span>
+					</a>
+					</li> -->
+				</ul>
+			</div>
+		</section>
+		<section class="section-list">
+		<div class="ui-content">
+			<ul class="ui-listview" id='friends-list'>
+<!-- 				<li class="li-has-multiline li-has-thumb-left">
+					Name
+					<span class="ui-li-sub-text li-text-sub">Login</span>
+					<img src="./css/images/thumbnail_center.png" class="ui-li-thumb-left">
+				</li>
+				<li class="li-has-multiline li-has-thumb-left">
+					Name
+					<span class="ui-li-sub-text li-text-sub">Login</span>
+					<img src="./css/images/thumbnail_center.png" class="ui-li-thumb-left">
+				</li> -->
+			</ul>
+		</div>
+		</section>
+		</div>
+	</div>	
+	</div>
+	
+	<div class="ui-page" id="about-target">
+		<header class="ui-header">
+			<h2 class="ui-title" id="header-target">Имя цели</h2>
+		</header>
+	<div class="ui-content content-padding">
+		<div>
+			<font size="6" id="description-about">Описание цели //мб сделать Marquee</font>
+		</div>
+		<progress max="100" value="50" id="progress-about"> </progress>
+		<div class="ui-progress-ratio" id="progress-ratio-about">50%</div>
+		<div class="sub-date"><span id="sub-date-about">Выполнить до: </span></div>
+		<div class="dlike-button">
+			<button class="ui-btn like-btn" onclick="liked()"><img src="images/ic_thumb_up.png" style="vertical-align: middle"> <span id="like-text">0</span></button>
+		</div>
+		<div class="dlike-button">
+			<button class="ui-btn like-btn" onclick="disliked()"><img src="images/ic_thumb_down.png" style="vertical-align: middle"> <span id="dislike-text">0</span></button>
+		</div>
+		<div style="text-align: center; margin-top: 12px;">
+			<font size="6">Подтверждения</font>
+		</div>
+	</div>
+	<footer class="ui-footer ui-bottom-button">
+			<input type=button class="ui-btn" value="Подтвердить" onclick="openProof()"/>
+	</footer>
+	
+	<div id="proofPopup" class="ui-popup">
+    <div class="ui-popup-header">Подтверждения</div>
+    <div class="ui-popup-content">
+       <div class="ui-content">
+       		Установите ваш прогресс: 
+       		<input type="range" style="width: 100%; margin-top: 12px;" id="proof-slider"/>
+   		</div>
+    </div>
+    <div class="ui-popup-footer ui-grid-col-2">
+       <button id="2btnPopup-cancel" class="ui-btn" onclick="tau.closePopup()">Cancel</button>
+       <button id="2btnPopup-ok" class="ui-btn" onclick="makeProof()">OK</button>
+    </div>
+</div>
+	</div>
+	<script type="text/javascript" src="lib/jquery.js"></script>
+	<script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
+	<script type="text/javascript" src="js/circle-helper.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/sapcons.js"></script>
+	<script src="lowBatteryCheck.js"></script>
+</body>
+</html>

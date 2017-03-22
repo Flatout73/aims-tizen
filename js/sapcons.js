@@ -1,16 +1,17 @@
 var SAAgent = null;
 var SASocket = null;
-var CHANNELID = 124;
-var SecondChannel = 111;
+var CHANNELID = 124; //канал для основной инфы
+var SecondChannel = 111; //канал для лайков и дизлайков
 var ProviderAppName = "aims";
 var json = "";
+//переменные нужны для того, чтобы определить какие страницы были получены
 var isProfile = false;
 var isNews = false;
 var isFriends = false;
 
 var slider = {};
 var progr = new Number();
-var aimToOpen = new Object();
+var aimToOpen = new Object(); //текущая открытая цель
 
 var likesText = {};
 var dislikesText = {};
@@ -22,6 +23,7 @@ function createHTML(log_string) {
 	log.innerHTML = log.innerHTML + "<br> : " + log_string;
 }
 
+//экран о цели
 function showabout() {
 	document.getElementById('header-target').innerHTML = aimToOpen.Header;
 	console.log("Open: " + document.getElementById('header-target').innerHTML);
@@ -69,13 +71,14 @@ function showabout() {
 	}
 }
 
-
+//поп-ап для слайдера
 function openProof() {
 	slider = document.getElementById("proof-slider");
 	slider.value = progr;
 	tau.openPopup("#proofPopup");
 }
 
+//изменить прогресс по данным из слайдера
 function makeProof() {
 	progr = slider.value;
 	aimToOpen.progress = progr;
@@ -84,8 +87,10 @@ function makeProof() {
 	document.getElementById("progress-ratio-about").innerHTML = progr + "%";
 }
 
+//лайкнуть цель
 function liked() {
 	//SASocket.sendData(SecondChannel, "like");
+	//такая сложная логика лайков нужна, потому что они не обрабатываются нормально на серве
 	if(aimToOpen.liked === 0){
 		aimToOpen.liked = 1;
 		if(aimToOpen.disliked === 1){
@@ -107,30 +112,6 @@ function liked() {
 	
 	console.log("Liked aim: " + JSON.stringify(aimToOpen));
 } 
-
-function doRequest(token) {
-	
-if(!SASocket){
-	var msg = {
-		"token": token,
-		"userlogin": aimToOpen.Us.Login,
-		"date": aimToOpen.Date
-	};
-	$.ajax({
-		type: "GET",
-		url: "http://backrestapi025036.azurewebsites.net/api/likes/likeaim/",
-		data: msg,
-		success: function(response) {
-			console.log(response);
-			SASocket.sendData(SecondChannel, JSON.parse(response).Token);
-		},
-		error: function(e) {
-			console.log(e);
-		}
-	});
-}
-
-}
 
 function disliked() {
 	if(aimToOpen.disliked === 0){
@@ -154,6 +135,7 @@ function disliked() {
 	console.log("Disliked aim: " + JSON.stringify(aimToOpen));
 }
 
+//парсим из джейсона Мою страницу
 function parseProfile(str) {
 	var data = [];
 	var myPage = document.getElementById("mypage-list-targets");
@@ -237,6 +219,7 @@ function parseProfile(str) {
 	});
 }
 
+//парсим список друзей
 function parseFriends(str) {
 	var data = [];
 	var listPage = document.getElementById('friends-list');
@@ -253,12 +236,13 @@ function parseFriends(str) {
 					newImage.outerHTML,
 				"</li>");
 	}
-	listPage.innerHTML = data.join("")
+	listPage.innerHTML = data.join("");
 	isFriends = true;
 	
 	console.log("Get user Friends");
 }
 
+//парсим ленту
 function parseNews(str) {
 	var data = [];
 	var feed = document.getElementById('news-feed');
@@ -310,6 +294,7 @@ function onerror(err) {
 	alert("Ошибка: " + err.message);
 }
 
+//если удалось соединиться с тебелефоном
 var agentCallback = {
 		onconnect: function(socket) {
 			console.log("agentCallback onconnect" + socket);
@@ -325,11 +310,12 @@ var agentCallback = {
 			});
 			//SASocket.sendData(CHANNELID, "request");
 			//alert("SAP Connection estabilished with RemotePeer");
-			fetch();
+			fetch(); //отправляем запрос на телефон
 		},
 			onerror: onerror
 		};
 
+//если нашли пир-агента(телефон)
 var peerAgentFindCallback = {
 		onpeeragentfound: function(peerAgent) {
 			try {
@@ -348,6 +334,7 @@ var peerAgentFindCallback = {
 			onerror : onerror
 		};
 
+//если удалось создать "агента"
 function onsuccess(agents) {
 	try {
 		for(var i = 0; i < agents.length; i++) {
@@ -368,11 +355,12 @@ function onsuccess(agents) {
 	}
 }
 
+//при получении инфы от телефона
 function onreceive(channelID, data) {
 	
-	if(channelID == SecondChannel) {
-		doRequest(data);
-	}
+//	if(channelID == SecondChannel) {
+//		doRequest(data); //ранняя версия
+//	}
 	
 	//createHTML(data);
 	json = null;
@@ -393,10 +381,11 @@ function onreceive(channelID, data) {
 	
 }
 
+//создаем соединение
 function connect() {
 	if(SASocket) {
 		//alert("Already connected");
-		fetch();
+		fetch(); // и сразу отправляем запрос, если оно уже есть
 		return false;
 	} 
 	try {
@@ -406,6 +395,7 @@ function connect() {
 	}
 }
 
+//отправляем сообщение телефону
 function fetch() {
 	try {
 		//connect();
@@ -424,6 +414,7 @@ function fetch() {
 	}
 }
 
+//отключаемся
 function disconnect() {
 	try {
 		if(SASocket != null) {

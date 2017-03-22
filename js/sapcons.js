@@ -18,11 +18,6 @@ var dislikesText = {};
 
 $("#about-target").on("pagebeforeshow", showabout);
 
-function createHTML(log_string) {
-	var log = document.getElementById('resultBoard');
-	log.innerHTML = log.innerHTML + "<br> : " + log_string;
-}
-
 //экран о цели
 function showabout() {
 	document.getElementById('header-target').innerHTML = aimToOpen.Header;
@@ -300,7 +295,6 @@ var agentCallback = {
 			console.log("agentCallback onconnect" + socket);
 			SASocket = socket;
 			tau.openPopup("#connection-toast");
-			//createHTML("startConnection");
 			SASocket.setDataReceiveListener(onreceive);
 			console.log("Listener established");
 			SASocket.setSocketStatusListener(function(reason) {
@@ -362,7 +356,6 @@ function onreceive(channelID, data) {
 //		doRequest(data); //ранняя версия
 //	}
 	
-	//createHTML(data);
 	json = null;
 	json = JSON.parse(data);
 	if(json.TypeOfRequest === "request_profile") {
@@ -400,7 +393,6 @@ function fetch() {
 	try {
 		//connect();
 		//SASocket.setDataRecieveListener(onreceive);
-		//SASocket.sendData(CHANNELID, "Hello Accessory!");
 		tau.openPopup("progress-popup");
 		document.getElementById('cancel-popup').addEventListener('click', function(ev) {
 			disconnect();
@@ -421,7 +413,6 @@ function disconnect() {
 			console.log("DISCONNECT SASOCKET NOT NULL");
 			SASocket.close();
 			SASocket = null;
-			createHTML("closeConnection");
 		}
 	} catch(err) {
 		console.log(" DISCONNECT ERROR: exception [" + err.name + "] msg[" + err.message + "]");
